@@ -1,0 +1,21 @@
+{
+    "name": "portfolio-backend",
+    "version": "1.0.0",
+    "description": "Backend for portfolio image uploads",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.4.5",
+    "nodemailer": "^6.9.13"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}
