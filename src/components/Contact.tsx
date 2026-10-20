@@ -17,32 +17,53 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    try {
-      for (const url of ['/api/contact', 'http://localhost:5000/api/contact']) {
-        try {
-          const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(form),
-          });
-          const ct = res.headers.get('content-type') || '';
-          if (!ct.includes('application/json')) continue;
-          const data = await res.json();
-          if (res.ok && data?.success) {
-            setStatus('ok');
-            setMsg(data?.message || "Message sent! Your email was delivered directly to Somay's inbox.");
-            setForm({ name: '', email: '', message: '' });
-            return;
-          }
-        } catch {
-          /* try next fallback url */
+
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+      _subject: `📬 New Portfolio Message from ${form.name.trim()}`,
+      _template: 'table',
+      _captcha: 'false',
+    };
+
+    const endpoints = [
+      'https://formsubmit.co/ajax/dragonwarriorpo06@gmail.com',
+      '/api/contact',
+      'http://localhost:5000/api/contact',
+    ];
+
+    for (const url of endpoints) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        const data = await res.json().catch(() => null);
+        if (res.ok && (data?.success === true || data?.success === 'true')) {
+          setStatus('ok');
+          setMsg("Message sent! Your email was delivered directly to Somay's inbox.");
+          setForm({ name: '', email: '', message: '' });
+          return;
         }
+      } catch {
+        /* try next fallback url */
       }
-      throw new Error('Server unreachable');
-    } catch (err: any) {
-      setStatus('err');
-      setMsg('Could not reach the local email server. You can click below to send via your email client directly.');
     }
+
+    setStatus('err');
+    setMsg('Could not send automatically. Tap below to send via your email app:');
   };
 
   const getMailtoLink = () => {
