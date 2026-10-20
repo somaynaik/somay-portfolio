@@ -26,6 +26,7 @@ const Navbar: React.FC = () => {
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      width: '100%', maxWidth: '100vw', boxSizing: 'border-box',
       backgroundColor: scrolled ? 'rgba(29, 78, 216, 0.94)' : '#1D4ED8',
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
@@ -33,7 +34,8 @@ const Navbar: React.FC = () => {
       transition: 'background-color 0.3s ease, border-color 0.3s ease',
     }}>
       <div style={{
-        maxWidth: '1280px', margin: '0 auto', padding: '0 32px',
+        maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)',
+        boxSizing: 'border-box',
         height: '76px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
         {/* Home icon button with spring tap */}

@@ -82,8 +82,18 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" style={{ backgroundColor: '#F5F0E8', padding: '95px 0 110px' }}>
-      <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 36px' }}>
+    <section
+      id="contact"
+      style={{
+        backgroundColor: '#F5F0E8',
+        padding: 'clamp(60px, 8vw, 95px) 0 clamp(70px, 8vw, 110px)',
+        width: '100%',
+        maxWidth: '100vw',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 36px)', boxSizing: 'border-box' }}>
 
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
           <span style={{
@@ -114,13 +124,13 @@ const Contact: React.FC = () => {
             fontSize: 'clamp(2.4rem, 6vw, 4rem)',
             color: '#1D4ED8',
             letterSpacing: '-0.015em',
-            margin: '0 0 3.5rem',
+            margin: '0 0 clamp(2rem, 5vw, 3.5rem)',
           }}
         >
           CONTACT
         </motion.h2>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'clamp(2rem, 5vw, 4rem)', alignItems: 'flex-start', width: '100%', boxSizing: 'border-box' }}>
 
           {/* Left Column */}
           <motion.div
@@ -128,7 +138,7 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ flex: '1 1 300px' }}
+            style={{ flex: '1 1 280px', minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
           >
             <h3 style={{
               fontFamily: '"Playfair Display", Georgia, serif',
@@ -225,12 +235,12 @@ const Contact: React.FC = () => {
                     }}>
                       {icon}
                     </span>
-                    <div>
+                    <div style={{ minWidth: 0 }}>
                       <span style={{ display: 'block', color: '#111', fontWeight: 800, fontSize: '0.92rem' }}>{lbl}</span>
-                      <span style={{ display: 'block', color: '#666', fontSize: '0.75rem', fontWeight: 500 }}>{desc}</span>
+                      <span style={{ display: 'block', color: '#666', fontSize: '0.75rem', fontWeight: 500, wordBreak: 'break-word' }}>{desc}</span>
                     </div>
                   </div>
-                  <span style={{ color: '#1D4ED8', fontWeight: 800, fontSize: '1rem' }}>&rarr;</span>
+                  <span style={{ color: '#1D4ED8', fontWeight: 800, fontSize: '1rem', flexShrink: 0 }}>&rarr;</span>
                 </motion.a>
               ))}
             </div>
@@ -243,10 +253,14 @@ const Contact: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              flex: '1 1 340px',
+              flex: '1 1 280px',
+              minWidth: 0,
+              width: '100%',
+              maxWidth: '100%',
+              boxSizing: 'border-box',
               backgroundColor: '#FFFFFF',
               borderRadius: '24px',
-              padding: '2.4rem',
+              padding: 'clamp(18px, 4vw, 2.4rem)',
               border: '1.5px solid rgba(29, 78, 216, 0.2)',
               boxShadow: '0 16px 40px -10px rgba(29, 78, 216, 0.08), inset 0 1px 0 rgba(255,255,255,0.9)',
             }}

@@ -24,7 +24,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F5F0E8', minHeight: '100vh' }}>
+    <div style={{ fontFamily: 'Inter, sans-serif', backgroundColor: '#F5F0E8', minHeight: '100vh', width: '100%', maxWidth: '100vw', overflowX: 'hidden' }}>
       <Navbar />
       <Hero />
       <About />
@@ -44,9 +44,10 @@ const App: React.FC = () => {
         transition={{ delay: 1, duration: 0.6, ease: 'easeOut' }}
         style={{
           position: 'fixed',
-          bottom: '24px',
-          right: '24px',
+          bottom: 'clamp(14px, 2.5vh, 24px)',
+          right: 'clamp(12px, 3vw, 24px)',
           zIndex: 100,
+          maxWidth: 'calc(100vw - 24px)',
         }}
       >
         <motion.button

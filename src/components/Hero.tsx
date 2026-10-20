@@ -87,6 +87,8 @@ const Hero: React.FC = () => {
       style={{
         backgroundColor: '#1D4ED8',
         minHeight: '100vh',
+        width: '100%',
+        maxWidth: '100vw',
         paddingTop: '76px',
         position: 'relative',
         overflow: 'hidden',
@@ -94,16 +96,19 @@ const Hero: React.FC = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        boxSizing: 'border-box',
       }}
     >
       <div style={{
         position: 'relative',
         width: '100%',
+        maxWidth: '100vw',
         flex: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: 'calc(100vh - 76px)',
+        overflow: 'hidden',
       }}>
 
         {/* Layer 1: Giant PORTFOLIO Text */}
@@ -117,14 +122,15 @@ const Hero: React.FC = () => {
           pointerEvents: 'none',
           userSelect: 'none',
           width: '100%',
+          overflow: 'hidden',
         }}>
           <h1 style={{
             fontFamily: "'Bebas Neue', 'Syne', sans-serif",
             fontWeight: 400,
-            fontSize: 'clamp(6rem, 21vw, 22rem)',
-            lineHeight: 0.85,
+            fontSize: 'clamp(3.4rem, 18.5vw, 20rem)',
+            lineHeight: 0.88,
             color: '#F5F0E8',
-            letterSpacing: '0.04em',
+            letterSpacing: '0.03em',
             margin: 0,
             whiteSpace: 'nowrap',
             textTransform: 'uppercase',
@@ -189,12 +195,14 @@ const Hero: React.FC = () => {
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
               textDecoration: 'none',
-              padding: '14px 34px',
+              padding: '12px clamp(20px, 4vw, 34px)',
               borderRadius: '9999px',
               border: '2px solid rgba(29, 78, 216, 0.15)',
               boxShadow: '0 10px 30px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.9)',
               marginTop: '20px',
               whiteSpace: 'nowrap',
+              maxWidth: 'calc(100vw - 32px)',
+              boxSizing: 'border-box',
               cursor: 'pointer',
             }}
           >

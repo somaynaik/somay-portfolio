@@ -7,8 +7,16 @@ const scrollTo = (id: string) => {
 };
 
 const Footer: React.FC = () => (
-  <footer style={{ backgroundColor: '#1D4ED8', padding: '3.8rem 0 2.5rem', borderTop: '1px solid rgba(245, 240, 232, 0.15)' }}>
-    <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 36px' }}>
+  <footer style={{
+    backgroundColor: '#1D4ED8',
+    padding: 'clamp(40px, 6vw, 3.8rem) 0 2.5rem',
+    borderTop: '1px solid rgba(245, 240, 232, 0.15)',
+    width: '100%',
+    maxWidth: '100vw',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+  }}>
+    <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 clamp(16px, 4vw, 36px)', boxSizing: 'border-box' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
         <motion.button
           onClick={() => scrollTo('home')}
