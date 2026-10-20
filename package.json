@@ -1,7 +1,7 @@
 {
-  "name": "josh-inglis-portfolio",
+  "name": "somay-portfolio",
   "version": "1.0.0",
-  "description": "A modern personal portfolio website for Josh Inglis built with React, Tailwind CSS, and Framer Motion.",
+  "description": "Personal portfolio website for Somay Naik built with React, Tailwind CSS, and Framer Motion.",
   "main": "src/index.tsx",
   "scripts": {
     "start": "vite",
@@ -40,14 +40,14 @@
     "typescript": "^4.9.5",
     "vite": "^8.2.1"
   },
-  "homepage": "https://your-portfolio-url.com",
+  "homepage": "https://somaynaik.github.io/somay-portfolio",
   "keywords": [
     "portfolio",
     "react",
     "tailwindcss",
     "framer-motion"
   ],
-  "author": "Josh Inglis",
+  "author": "Somay Naik",
   "license": "MIT",
   "browserslist": {
     "production": [

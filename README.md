@@ -1,53 +1,40 @@
-# Josh Inglis Portfolio
+# Somay Naik Portfolio
 
-Welcome to the Josh Inglis Portfolio! This project showcases my work and achievements as a Cricketer, Engineer, Quizzer, and Coder. Built with modern technologies, this portfolio is designed to be interactive and visually engaging.
+Personal portfolio website for **Somay Naik** — Computer Science & IT major, Full-Stack Developer, and Quizzer.
 
-## Table of Contents
-
-- [Technologies Used](#technologies-used)
-- [Features](#features)
-- [Setup Instructions](#setup-instructions)
-- [Usage](#usage)
-- [License](#license)
-
-## Technologies Used
-
-- React
-- Tailwind CSS
-- Framer Motion
-- TypeScript
+Built with **React**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**, elevated with Emil Kowalski design engineering principles.
 
 ## Features
 
-- **Home Section**: Animated hero section with cycling text and a call-to-action button.
-- **About Section**: A brief biography, image placeholder, and skill badges.
-- **Achievements Section**: A timeline or card-based layout showcasing milestones with hover animations.
-- **Projects Section**: A grid of project cards with titles, tech stack tags, descriptions, and links.
-- **Contact Section**: A modern contact form with social media icons.
+- **Dynamic Hero Section**: Editorial typography, cycling micro-graphic, portrait cutout, and quick resume download.
+- **Interactive Project Showcase**:
+  - **Bird Map**: Real-time species observation feed and interactive radar locator.
+  - **Event Management**: Live hackathon agenda and interactive attendee entry pass generator.
+  - **Tandav Scorer**: Live cricket scoreboard engine with tactile ball-by-ball scoring controls.
+- **Interactive Audio Dock**: Floating bottom dock with animated soundwave equalizer bars.
+- **Functional Contact Form**: Direct message delivery via SMTP with automatic mail client fallback.
 
-## Setup Instructions
+## Tech Stack
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/josh-inglis-portfolio.git
-   ```
-2. Navigate to the project directory:
-   ```
-   cd josh-inglis-portfolio
-   ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-4. Start the development server:
-   ```
-   npm start
-   ```
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion
+- **Backend**: Node.js, Express, Nodemailer
 
-## Usage
+## Development
 
-Once the development server is running, open your browser and navigate to `http://localhost:3000` to view the portfolio. You can explore different sections using the navigation bar.
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+
+# Start local email backend (optional)
+npm run server
+```
 
 ## License
 
-This project is licensed under the MIT License. Feel free to use and modify it as you wish!
+MIT © Somay Naik
