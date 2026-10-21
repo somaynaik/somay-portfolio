@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Email is assembled at runtime so it never appears as plain text on the page or on hover
+const getEmail = () => ['dragonwarriorpo06', 'gmail.com'].join('@');
+
+const openGmailCompose = (e: React.MouseEvent) => {
+  e.preventDefault();
+  const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(getEmail())}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
 const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'err'>('idle');
@@ -27,43 +36,57 @@ const Contact: React.FC = () => {
       _captcha: 'false',
     };
 
-    const endpoints = [
-      'https://formsubmit.co/ajax/dragonwarriorpo06@gmail.com',
-      '/api/contact',
-      'http://localhost:5000/api/contact',
-    ];
+    // Primary: FormSubmit (works on static hosting like GitHub Pages)
+    let serviceMessage = '';
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      const res = await fetch(`https://formsubmit.co/ajax/${getEmail()}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
 
-    for (const url of endpoints) {
+      const data = await res.json().catch(() => null);
+      if (res.ok && (data?.success === true || data?.success === 'true')) {
+        setStatus('ok');
+        setMsg("Message sent! It's on its way to Somay's inbox.");
+        setForm({ name: '', email: '', message: '' });
+        return;
+      }
+      serviceMessage = data?.message || '';
+    } catch {
+      /* network error / timeout — fall through */
+    }
+
+    // Dev-only fallback: local Express backend (not available on GitHub Pages)
+    if (process.env.NODE_ENV !== 'production') {
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 7000);
-
-        const res = await fetch(url, {
+        const res = await fetch('/api/contact', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload),
-          signal: controller.signal,
         });
-
-        clearTimeout(timeoutId);
-
         const data = await res.json().catch(() => null);
-        if (res.ok && (data?.success === true || data?.success === 'true')) {
+        if (res.ok && data?.success) {
           setStatus('ok');
-          setMsg("Message sent! Your email was delivered directly to Somay's inbox.");
+          setMsg('Message saved by the local dev server.');
           setForm({ name: '', email: '', message: '' });
           return;
         }
       } catch {
-        /* try next fallback url */
+        /* backend not running */
       }
     }
 
     setStatus('err');
-    setMsg('Could not send automatically. Tap below to send via your email app:');
+    setMsg(
+      serviceMessage
+        ? `${serviceMessage} You can also send it via your email app:`
+        : 'Could not send automatically. Tap below to send via your email app:'
+    );
   };
 
   const getMailtoLink = () => {
@@ -71,7 +94,7 @@ const Contact: React.FC = () => {
     const body = encodeURIComponent(
       `Hi Somay,\n\n${form.message || ''}\n\nBest regards,\n${form.name || 'Visitor'}\n${form.email ? `Email: ${form.email}` : ''}`
     );
-    return `mailto:dragonwarriorpo06@gmail.com?subject=${subject}&body=${body}`;
+    return `mailto:${getEmail()}?subject=${subject}&body=${body}`;
   };
 
   const getInputStyle = (fieldName: string): React.CSSProperties => ({
@@ -204,9 +227,10 @@ const Contact: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {[
                 {
-                  href: 'mailto:dragonwarriorpo06@gmail.com',
+                  href: '#contact',
+                  onClick: openGmailCompose,
                   label: 'Email Somay Directly',
-                  desc: 'dragonwarriorpo06@gmail.com',
+                  desc: 'Drop me a message anytime',
                   icon: '✉️',
                 },
                 {
@@ -221,12 +245,13 @@ const Contact: React.FC = () => {
                   desc: 'Explore source code & repos',
                   icon: '💻',
                 },
-              ].map(({ href, label: lbl, desc, icon }) => (
+              ].map(({ href, label: lbl, desc, icon, onClick }: { href: string; label: string; desc: string; icon: string; onClick?: (e: React.MouseEvent) => void }) => (
                 <motion.a
                   key={lbl}
                   href={href}
-                  target={href.startsWith('mailto:') ? undefined : '_blank'}
-                  rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                  onClick={onClick}
+                  target={onClick ? undefined : '_blank'}
+                  rel={onClick ? undefined : 'noopener noreferrer'}
                   whileHover={{ x: 6, transition: { type: 'spring', stiffness: 450, damping: 25 } }}
                   whileTap={{ scale: 0.98 }}
                   style={{
